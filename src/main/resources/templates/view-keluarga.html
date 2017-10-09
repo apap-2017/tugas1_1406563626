@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+    <title>SI Kependudukan - Lihat Keluarga</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{'/'}">SI Kependudukan</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a th:href="@{'/'}">Home</a></li>
+            <li><a href="#">Cari Data</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h3 th:text="'Lihat Data Keluarga - ' + ${keluarga.nomor_kk}"></h3>
+        <div class="row">
+            <div class="col-md-4">
+                <p><b>NKK</b></p>
+                <p><b>Alamat</b></p>
+                <p><b>RT/RW</b></p>
+                <p><b>Kelurahan/Desa</b></p>
+                <p><b>Kecamatan</b></p>
+                <p><b>Kota</b></p>
+            </div>
+            <div class="col-md-8">
+                <p th:text="${keluarga.nomor_kk}"></p>
+                <p th:text="${keluarga.alamat}"></p>
+                <p th:text="${keluarga.rt} + '/' + ${keluarga.rw}"></p>
+                <p th:text="${kelurahan.nama_kelurahan}"></p>
+                <p th:text="${kecamatan.nama_kecamatan}"></p>
+                <p th:text="${kota.nama_kota}"></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <hr/>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nama Lengkap</th>
+                <th>NIK</th>
+                <th>Jenis Kelamin</th>
+                <th>Tempat Lahir</th>
+                <th>Tanggal Lahir</th>
+                <th>Agama</th>
+                <th>Pekerjaan</th>
+                <th>Status Perkawinan</th>
+                <th>Status Dalam Keluarga</th>
+                <th>Kewarganegaraan</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="anggotaKeluarga,iterationStatus: ${anggotaKeluarga}">
+                <td><p th:text="${iterationStatus.count}"></p></td>
+                <td><p th:text="${anggotaKeluarga.nama}"></p></td>
+                <td><p th:text="${anggotaKeluarga.nik}"></p></td>
+                <td th:switch="${anggotaKeluarga.jenis_kelamin}">
+                    <p th:case="0">Laki-laki</p>
+                    <p th:case="1">Perempuan</p>
+                </td>
+                <td><p th:text="${anggotaKeluarga.tempat_lahir}"></p></td>
+                <td><p th:text="${anggotaKeluarga.tanggal_lahir}"></p></td>
+                <td><p th:text="${anggotaKeluarga.agama}"></p></td>
+                <td><p th:text="${anggotaKeluarga.pekerjaan}"></p></td>
+                <td><p th:text="${anggotaKeluarga.status_perkawinan}"></p></td>
+                <td><p th:text="${anggotaKeluarga.status_dalam_keluarga}"></p></td>
+                <td th:switch="${anggotaKeluarga.is_wni}">
+                    <p th:case="0">WNA</p>
+                    <p th:case="1">WNI</p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+</body>
+</html>

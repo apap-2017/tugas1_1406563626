@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+    <title>SI Kependudukan - Lihat Penduduk</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{'/'}">SI Kependudukan</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a th:href="@{'/'}">Home</a></li>
+                <li><a href="#">Cari Data</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h3 th:text="'Lihat Data Penduduk - ' + ${penduduk.nik}"></h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <p><b>NIK</b></p>
+                    <p><b>Nama</b></p>
+                    <p><b>Tempat/Tanggal Lahir</b></p>
+                    <p><b>Alamat</b></p>
+                    <p><b>RT/RW</b></p>
+                    <p><b>Kelurahan/Desa</b></p>
+                    <p><b>Kecamatan</b></p>
+                    <p><b>Kota</b></p>
+                    <p><b>Golongan Darah</b></p>
+                    <p><b>Agama</b></p>
+                    <p><b>Status Perkawinan</b></p>
+                    <p><b>Pekerjaan</b></p>
+                    <p><b>Kewarganegaraan</b></p>
+                    <p><b>Status Kematian</b></p>
+                </div>
+                <div class="col-md-8">
+                    <p th:text="${penduduk.nik}"></p>
+                    <p th:text="${penduduk.nama}"></p>
+                    <p th:text="${penduduk.tempat_lahir} + ', ' + ${penduduk.tanggal_lahir}"></p>
+                    <p th:text="${keluarga.alamat}"></p>
+                    <p th:text="${keluarga.rt} + '/' + ${keluarga.rw}"></p>
+                    <p th:text="${kelurahan.nama_kelurahan}"></p>
+                    <p th:text="${kecamatan.nama_kecamatan}"></p>
+                    <p th:text="${kota.nama_kota}"></p>
+                    <p th:text="${penduduk.golongan_darah}"></p>
+                    <p th:text="${penduduk.agama}"></p>
+                    <p th:text="${penduduk.status_perkawinan}"></p>
+                    <p th:text="${penduduk.pekerjaan}"></p>
+                    <div th:switch="${penduduk.is_wni}">
+                        <p th:case="'0'"> WNA </p>
+                        <p th:case="'1'"> WNI </p>
+                    </div>
+                    <div th:switch="${penduduk.is_wafat}" class="row">
+                        <div th:case="'0'">
+                            <div class="col-md-4">
+                                    <p> Hidup </p>
+                            </div>
+                            <div class="col-md-8">
+                                <form action="/penduduk/mati" method="post">
+                                    <input type="hidden" th:value="${penduduk.nik}" name="nik"/>
+                                    <button class="btn btn-danger">Nonaktifkan</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div th:case="'1'">
+                            <div class="col-md-4">
+                                <p> Wafat </p>
+                            </div>
+                            <div class="col-md-8"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+    <title>SI Kependudukan</title>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{'/'}">SI Kependudukan</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a th:href="@{'/'}">Home</a></li>
+                <li><a href="#">Cari Data</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h2>Sistem Informasi Kependudukan Online Provinsi DKI Jakarta</h2>
+            <p>Selamat datang di Sistem Informasi Kependudukan Online Provinsi DKI Jakarta</p>
+            <hr/>
+            <h4>Lihat Data Penduduk Berdasarkan NIK</h4>
+            <form action="/penduduk" method="get">
+                <div class="form-group">
+                    <label for="nik">Masukkan Nomor Induk Kependudukan</label>
+                    <input type="text" class="form-control" name="nik"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Lihat</button>
+            </form>
+            <hr/>
+            <h4>Lihat Data Keluarga Berdasarkan NKK</h4>
+            <form action="/keluarga" method="get">
+                <div class="form-group">
+                    <label for="nik">Masukkan Nomor Kartu Keluarga</label>
+                    <input type="text" class="form-control" name="nkk"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Lihat</button>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</body>
+</html>
+
