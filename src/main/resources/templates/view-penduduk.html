@@ -55,11 +55,11 @@
                     <p th:text="${penduduk.status_perkawinan}"></p>
                     <p th:text="${penduduk.pekerjaan}"></p>
                     <div th:switch="${penduduk.is_wni}">
-                        <p th:case="'0'"> WNA </p>
-                        <p th:case="'1'"> WNI </p>
+                        <p th:case="false"> WNA </p>
+                        <p th:case="true"> WNI </p>
                     </div>
                     <div th:switch="${penduduk.is_wafat}" class="row">
-                        <div th:case="'0'">
+                        <div th:case="false">
                             <div class="col-md-4">
                                     <p> Hidup </p>
                             </div>
@@ -70,7 +70,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div th:case="'1'">
+                        <div th:case="true">
                             <div class="col-md-4">
                                 <p> Wafat </p>
                             </div>
