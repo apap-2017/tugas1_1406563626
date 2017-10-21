@@ -28,6 +28,7 @@
                 <div class="col-md-4">
                     <p><b>NIK</b></p>
                     <p><b>Nama</b></p>
+                    <p><b>Jenis Kelamin</b></p>
                     <p><b>Tempat/Tanggal Lahir</b></p>
                     <p><b>Alamat</b></p>
                     <p><b>RT/RW</b></p>
@@ -44,6 +45,10 @@
                 <div class="col-md-8">
                     <p th:text="${penduduk.nik}"></p>
                     <p th:text="${penduduk.nama}"></p>
+                    <div th:switch="${penduduk.jenis_kelamin}">
+                        <p th:case="'0'"> Laki-laki </p>
+                        <p th:case="'1'"> Perempuan </p>
+                    </div>
                     <p th:text="${penduduk.tempat_lahir} + ', ' + ${penduduk.tanggal_lahir}"></p>
                     <p th:text="${keluarga.alamat}"></p>
                     <p th:text="${keluarga.rt} + '/' + ${keluarga.rw}"></p>
