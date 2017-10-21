@@ -14,6 +14,8 @@ public interface PendudukService
 
     List<PendudukModel> selectPendudukKeluarga(int id_keluarga);
 
+    List<PendudukModel> selectSimilarPenduduk(String tanggal_lahir, int id_kelurahan, int id_kecamatan, int id_kota);
+
     void setWafatPenduduk(String nik);
 
     void updatePenduduk(PendudukModel penduduk);

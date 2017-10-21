@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+    <title>SI Kependudukan - Ubah Penduduk</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{'/'}">SI Kependudukan</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a th:href="@{'/'}">Home</a></li>
+            <li><a href="#">Cari Data</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h3>Ubah Penduduk</h3>
+        <form action="/penduduk/ubah/submit" th:object="${penduduk}" method="post">
+            <div class="form-group">
+                <label for="nik">NIK</label>
+                <input type="text" class="form-control" name="nik" id="nik" readonly="true" th:field="*{nik}" th:value="${penduduk.nik}"/>
+            </div>
+            <div class="form-group">
+                <label for="nama">Nama</label>
+                <input type="text" class="form-control" name="nama" id="nama" th:field="*{nama}" th:value="${penduduk.nama}"/>
+            </div>
+            <div class="form-group">
+                <label for="is_wni">Jenis Kelamin</label>
+                <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+                    <option th:if="${penduduk.jenis_kelamin} == '1'" value="1" th:field="*{jenis_kelamin}" selected="true">Perempuan</option>
+                    <option th:if="${penduduk.jenis_kelamin} == '0'" value="0" th:field="*{jenis_kelamin}" selected="true">Laki-laki</option>
+                    <option th:if="${penduduk.jenis_kelamin} == '0'" value="1" th:field="*{jenis_kelamin}">Perempuan</option>
+                    <option th:if="${penduduk.jenis_kelamin} == '1'" value="0" th:field="*{jenis_kelamin}">Laki-laki</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="tempat_lahir">Tempat Lahir</label>
+                <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" readonly="true" th:field="*{tempat_lahir}" th:value="${penduduk.tempat_lahir}"/>
+            </div>
+            <div class="form-group">
+                <label for="tanggal_lahir">Tanggal Lahir</label>
+                <input type="text" class="form-control" name="tanggal_lahir" id="tanggal_lahir" readonly="true" th:field="*{tanggal_lahir}" th:value="${penduduk.tanggal_lahir}"/>
+            </div>
+            <div class="form-group">
+                <label for="golongan_darah">Golongan Darah</label>
+                <select class="form-control" name="golongan_darah" id="golongan_darah">
+                    <option selected="true" th:field="*{golongan_darah}" th:value="${penduduk.golongan_darah}" th:text="${penduduk.golongan_darah}"></option>
+                    <option th:if="${penduduk.golongan_darah} != 'O-'" value="O-" th:field="*{golongan_darah}">O-</option>
+                    <option th:if="${penduduk.golongan_darah} != 'O+'" value="O+" th:field="*{golongan_darah}">O+</option>
+                    <option th:if="${penduduk.golongan_darah} != 'A-'" value="A-" th:field="*{golongan_darah}">A-</option>
+                    <option th:if="${penduduk.golongan_darah} != 'A+'" value="A+" th:field="*{golongan_darah}">A+</option>
+                    <option th:if="${penduduk.golongan_darah} != 'B-'" value="B-" th:field="*{golongan_darah}">B-</option>
+                    <option th:if="${penduduk.golongan_darah} != 'B+'" value="B+" th:field="*{golongan_darah}">B+</option>
+                    <option th:if="${penduduk.golongan_darah} != 'AB-'" value="AB-" th:field="*{golongan_darah}">AB-</option>
+                    <option th:if="${penduduk.golongan_darah} != 'AB+'" value="AB+" th:field="*{golongan_darah}">AB+</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="agama">Agama</label>
+                <input type="text" class="form-control" name="agama" id="agama" th:field="*{agama}" th:value="${penduduk.agama}"/>
+            </div>
+            <div class="form-group">
+                <label for="status_perkawinan">Status Perkawinan</label>
+                <select class="form-control" name="status_perkawinan" id="status_perkawinan">
+                    <option selected="true" th:field="*{status_perkawinan}" th:value="${penduduk.status_perkawinan}" th:text="${penduduk.status_perkawinan}"></option>
+                    <option th:if="${penduduk.status_perkawinan} != 'Belum Kawin'" value="'Belum Kawin'" th:field="*{status_perkawinan}">Belum Kawin</option>
+                    <option th:if="${penduduk.status_perkawinan} != 'Kawin'" value="'Kawin'" th:field="*{status_perkawinan}">Kawin</option>
+                    <option th:if="${penduduk.status_perkawinan} != 'Cerai Hidup'" value="'Cerai Hidup'" th:field="*{status_perkawinan}">Cerai Hidup</option>
+                    <option th:if="${penduduk.status_perkawinan} != 'Cerai Mati'" value="'Cerai Mati'" th:field="*{status_perkawinan}">Cerai Mati</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="status_dalam_keluarga">Status Dalam Keluarga</label>
+                <select class="form-control" name="status_dalam_keluarga" id="status_dalam_keluarga">
+                    <option selected="true" th:field="*{status_dalam_keluarga}" th:value="${penduduk.status_dalam_keluarga}" th:text="${penduduk.status_dalam_keluarga}"></option>
+                    <option th:if="${penduduk.status_dalam_keluarga} != 'Anak'" value="Anak" th:field="*{status_perkawinan}">Anak</option>
+                    <option th:if="${penduduk.status_dalam_keluarga} != 'Pembantu'" value="Pembantu" th:field="*{status_perkawinan}">Pembantu</option>
+                    <option th:if="${penduduk.status_dalam_keluarga} != 'Kepala Keluarga'" value="Kepala Keluarga" th:field="*{status_perkawinan}">Kepala Keluarga</option>
+                    <option th:if="${penduduk.status_dalam_keluarga} != 'Famili Lain'" value="Famili Lain" th:field="*{status_perkawinan}">Famili Lain</option>
+                    <option th:if="${penduduk.status_dalam_keluarga} != 'Istri'" value="Istri" th:field="*{status_perkawinan}">Istri</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pekerjaan">Pekerjaan</label>
+                <input type="text" class="form-control" name="pekerjaan" id="pekerjaan" th:field="*{pekerjaan}" th:value="${penduduk.pekerjaan}"/>
+            </div>
+            <div class="form-group">
+                <label for="is_wni">Kewarganegaraan</label>
+                <select class="form-control" name="is_wni" id="is_wni">
+                    <option th:if="${penduduk.is_wni} == true" value="1" th:field="*{is_wni}" selected="true">WNI</option>
+                    <option th:if="${penduduk.is_wni} == false" value="0" th:field="*{is_wni}" selected="true">WNA</option>
+                    <option th:if="${penduduk.is_wni} == false" value="1" th:field="*{is_wni}">WNI</option>
+                    <option th:if="${penduduk.is_wni} == true" value="0" th:field="*{is_wni}">WNA</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_keluarga">ID Keluarga</label>
+                <input type="text" class="form-control" name="id_keluarga" id="id_keluarga" th:field="*{id_keluarga}" th:value="${penduduk.id_keluarga}"/>
+            </div>
+            <!--<div class="form-group">-->
+            <!--<label class="col-xs-3 control-label" for="id_keluarga"> ID Keluarga </label>-->
+            <!--<div class="col-xs-5 selectContainer">-->
+            <!--<select class="form-control" name="id_keluarga" id="id_keluarga">-->
+            <!--<option selected="true" disabled="disabled">Pilih ID Keluarga</option>-->
+            <!--<option th:each="keluarga,iterationStatus: ${keluarga}"-->
+            <!--th:value="${keluarga.id}"-->
+            <!--th:text="${keluarga.id}" />-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--</div>-->
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+</body>
+</html>

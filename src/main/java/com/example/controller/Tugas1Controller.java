@@ -1,22 +1,24 @@
 package com.example.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import com.example.model.*;
-import com.example.service.*;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.validation.BindingResult;
 
+import com.example.model.*;
+import com.example.service.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -82,6 +84,29 @@ public class Tugas1Controller {
             model.addAttribute ("nik", nik);
             return "not-found";
         }
+    }
+
+    @RequestMapping(value = "/penduduk/ubah/{nik}")
+    public String updatePenduduk (Model model, @PathVariable(value = "nik") String nik)
+    {
+        PendudukModel penduduk = pendudukService.selectPenduduk(nik);
+
+        if (penduduk != null) {
+            model.addAttribute("penduduk", penduduk);
+            return "update-penduduk";
+        } else {
+            model.addAttribute ("nik", nik);
+            return "not-found";
+        }
+    }
+
+    @RequestMapping(value = "/penduduk/ubah/submit")
+    public String updatePenduduk (Model model, @ModelAttribute PendudukModel penduduk)
+    {
+
+        pendudukService.updatePenduduk(penduduk);
+        model.addAttribute("penduduk", penduduk);
+        return "update-penduduk-success";
     }
 
     @RequestMapping(value = "/keluarga", method = RequestMethod.GET)
