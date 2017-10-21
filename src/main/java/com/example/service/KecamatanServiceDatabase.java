@@ -21,6 +21,11 @@ public class KecamatanServiceDatabase implements KecamatanService {
     private KecamatanMapper kecamatanMapper;
 
     @Override
+    public List<KecamatanModel> selectAllKecamatan() {
+        return kecamatanMapper.selectAllKecamatan();
+    }
+
+    @Override
     public KecamatanModel selectKecamatanId(int id) {
         return kecamatanMapper.selectKecamatanId(id);
     }

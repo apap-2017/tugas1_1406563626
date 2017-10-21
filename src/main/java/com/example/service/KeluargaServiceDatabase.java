@@ -34,14 +34,20 @@ public class KeluargaServiceDatabase implements KeluargaService
     }
 
     @Override
+    public List<KeluargaModel> selectKeluargaKecamatan (int id_kecamatan)
+    {
+        return keluargaMapper.selectKeluargaKecamatan (id_kecamatan);
+    }
+
+    @Override
     public KeluargaModel selectKeluargaId (int id)
     {
         return keluargaMapper.selectKeluargaId (id);
     }
 
     @Override
-    public int selectKeluargaKelurahan (int id)
-    {
-        return keluargaMapper.selectKeluargaKelurahan (id);
+    public void addKeluarga (KeluargaModel keluarga) {
+        log.info("add keluarga {}", keluarga);
+        keluargaMapper.addKeluarga(keluarga);
     }
 }

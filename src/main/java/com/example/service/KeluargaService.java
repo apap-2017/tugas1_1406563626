@@ -12,6 +12,7 @@ public interface KeluargaService
 {
     KeluargaModel selectKeluarga(String nkk);
     List<KeluargaModel> selectAllKeluarga();
+    List<KeluargaModel> selectKeluargaKecamatan(int id_kecamatan);
     KeluargaModel selectKeluargaId(int id);
-    int selectKeluargaKelurahan(int id);
+    void addKeluarga(KeluargaModel keluarga);
 }

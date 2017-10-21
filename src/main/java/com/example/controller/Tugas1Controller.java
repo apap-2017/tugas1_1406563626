@@ -21,6 +21,9 @@ import com.example.model.*;
 import com.example.service.*;
 
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -89,7 +92,7 @@ public class Tugas1Controller {
         KecamatanModel kecamatan = kecamatanService.selectKecamatanId(kelurahan.getId_kecamatan());
         KotaModel kota = kotaService.selectKotaId(kecamatan.getId_kota());
 
-        // Memasukkan kode kecamatan yang sudah mengandung kode kelurahan dan kota ke nik
+        // Memasukkan kode kecamatan yang sudah mengandung kode kota dan provinsi ke nik
         nik += kecamatan.getKode_kecamatan().substring(0,6);
 
         if(penduduk.getJenis_kelamin() == 0){
@@ -148,7 +151,7 @@ public class Tugas1Controller {
 
         if (penduduk != null) {
             pendudukService.setWafatPenduduk(nik);
-            model.addAttribute("penduduk", penduduk);
+            model.addAttribute(penduduk);
             return "wafat-penduduk";
         } else {
             model.addAttribute ("nik", nik);
@@ -201,5 +204,67 @@ public class Tugas1Controller {
             model.addAttribute ("nkk", nkk);
             return "not-found";
         }
+    }
+
+    @RequestMapping(value = "/keluarga/tambah")
+    public String addKeluarga (Model model)
+    {
+        List<KotaModel> listKota = kotaService.selectAllKota();
+        List<KecamatanModel> listKecamatan = kecamatanService.selectAllKecamatan();
+        List<KelurahanModel> listKelurahan = kelurahanService.selectAllKelurahan();
+        model.addAttribute("keluarga", new KeluargaModel());
+        model.addAttribute("listKota", listKota);
+        model.addAttribute("listKecamatan", listKecamatan);
+        model.addAttribute("listKelurahan", listKelurahan);
+        return "add-keluarga";
+    }
+
+    @RequestMapping(value = "/keluarga/tambah/submit")
+    public String addPendudukSubmit (Model model, @ModelAttribute KeluargaModel keluarga)
+    {
+        String nkk = "";
+
+        KelurahanModel kelurahan = kelurahanService.selectKelurahanId(keluarga.getId_kelurahan());
+        KecamatanModel kecamatan = kecamatanService.selectKecamatanId(kelurahan.getId_kecamatan());
+
+        // Memasukkan kode kecamatan yang sudah mengandung kode kota dan provinsi ke nik
+        nkk += kecamatan.getKode_kecamatan().substring(0,6);
+
+        // Mengambil data tanggal pembuatan keluarga
+        DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
+        Date date = new Date();
+        nkk += dateFormat.format(date);
+        System.out.println("nkk dengan tanggal " + nkk);
+
+        List<KeluargaModel> listKeluarga = keluargaService.selectKeluargaKecamatan(kecamatan.getId());
+
+        int counter = 1;
+        for (KeluargaModel klrg : listKeluarga){
+            String kel_nkk = klrg.getNomor_kk();
+            if(kel_nkk.substring(0,12).equals(nkk)){
+                counter++;
+            }
+        }
+
+        String nomor_urut = Integer.toString(counter);
+
+        // Memasukkan nomor urut ke nkk berdasarkan panjang dari nomor urut
+        if(nomor_urut.length() == 1){
+            nkk += "000";
+            nkk += nomor_urut;
+        } else if(nomor_urut.length() == 2){
+            nkk += "00";
+            nkk += nomor_urut;
+        } else if(nomor_urut.length() == 3){
+            nkk += "0";
+            nkk += nomor_urut;
+        } else if(nomor_urut.length() == 4){
+            nkk += nomor_urut;
+        }
+
+        keluarga.setNomor_kk(nkk);
+        keluargaService.addKeluarga(keluarga);
+        model.addAttribute("keluarga", keluarga);
+        return "add-keluarga-success";
     }
 }

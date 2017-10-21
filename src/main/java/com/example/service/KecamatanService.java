@@ -6,7 +6,10 @@ package com.example.service;
 
 import com.example.model.KecamatanModel;
 
+import java.util.List;
+
 public interface KecamatanService {
+    List<KecamatanModel> selectAllKecamatan();
     KecamatanModel selectKecamatanId(int id);
     int selectKecamatanKota(int id);
 }

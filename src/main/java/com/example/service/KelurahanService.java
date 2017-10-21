@@ -6,7 +6,10 @@ package com.example.service;
 
 import com.example.model.KelurahanModel;
 
+import java.util.List;
+
 public interface KelurahanService {
+    List<KelurahanModel> selectAllKelurahan ();
     KelurahanModel selectKelurahanId (int id);
-    int selectKelurahanKecamatan (int id);
+    List<KelurahanModel> selectKelurahanKecamatan (int id_kecamatan);
 }

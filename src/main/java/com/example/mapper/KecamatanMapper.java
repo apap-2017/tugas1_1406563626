@@ -8,9 +8,14 @@ import org.apache.ibatis.annotations.*;
 
 import com.example.model.KecamatanModel;
 
+import java.util.List;
+
 @Mapper
 public interface KecamatanMapper
 {
+    @Select("SELECT * FROM siduk_dki.kecamatan")
+    List<KecamatanModel> selectAllKecamatan ();
+
     @Select("SELECT * FROM siduk_dki.kecamatan WHERE id = #{id}")
     KecamatanModel selectKecamatanId (@Param("id") int id);
 

@@ -22,10 +22,15 @@ public class KelurahanServiceDatabase implements KelurahanService
     private KelurahanMapper kelurahanMapper;
 
     @Override
+    public List<KelurahanModel> selectAllKelurahan (){
+        return kelurahanMapper.selectAllKelurahan ();
+    }
+
+    @Override
     public KelurahanModel selectKelurahanId (int id){
         return kelurahanMapper.selectKelurahanId (id);
     }
 
     @Override
-    public int selectKelurahanKecamatan (int id) { return kelurahanMapper.selectKelurahanKecamatan(id); }
+    public List<KelurahanModel> selectKelurahanKecamatan (int id_kecamatan) { return kelurahanMapper.selectKelurahanKecamatan(id_kecamatan); }
 }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <title>SI Kependudukan - Tambah Keluarga</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{'/'}">SI Kependudukan</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a th:href="@{'/'}">Home</a></li>
+            <li><a href="#">Cari Data</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h3>Tambah Keluarga</h3>
+        <form action="/keluarga/tambah/submit" method="post" th:object="${keluarga}">
+            <div class="form-group">
+                <label for="alamat">Masukkan Alamat</label>
+                <input type="text" class="form-control" name="alamat" th:field="*{alamat}"/>
+            </div>
+            <div class="form-group">
+                <label for="rt">RT/RW</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="rt" id="rt" th:field="*{rt}"/>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="rw" id="rw" th:field="*{rw}"/>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="form-group">-->
+                <!--<label for="id_kota"> Kota </label>-->
+                <!--<select class="form-control" name="id_kota" id="id_kota">-->
+                    <!--<option selected="true" disabled="disabled">Pilih Kota</option>-->
+                    <!--<option th:each="listKota,iterationStatus: ${listKota}"-->
+                            <!--th:value="${listKota.kode_kota}"-->
+                            <!--th:text="${listKota.nama_kota}" />-->
+                <!--</select>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+                <!--<label for="id_kecamatan"> Kecamatan </label>-->
+                <!--<select class="form-control" name="id_kecamatan" id="id_kecamatan">-->
+                    <!--<option selected="true" disabled="disabled">Pilih Kecamatan</option>-->
+                    <!--<option th:each="listKecamatan,iterationStatus: ${listKecamatan}"-->
+                            <!--th:value="${listKecamatan.kode_kecamatan}"-->
+                            <!--th:text="${listKecamatan.nama_kecamatan}" />-->
+                <!--</select>-->
+            <!--</div>-->
+            <div class="form-group">
+                <label for="id_kelurahan"> Kelurahan </label>
+                <select class="form-control" name="id_kelurahan" id="id_kelurahan">
+                    <option selected="true" disabled="disabled">Pilih Kelurahan</option>
+                    <option th:each="listKelurahan,iterationStatus: ${listKelurahan}"
+                            th:value="${listKelurahan.id}"
+                            th:text="${listKelurahan.nama_kelurahan}" th:field="*{id_kelurahan}"/>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+</body>
+<script>
+
+</script>
+</html>

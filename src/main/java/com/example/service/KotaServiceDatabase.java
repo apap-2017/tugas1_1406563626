@@ -22,6 +22,12 @@ public class KotaServiceDatabase implements KotaService
     private KotaMapper kotaMapper;
 
     @Override
+    public List<KotaModel> selectAllKota (){
+        log.info("select all kota");
+        return kotaMapper.selectAllKota ();
+    }
+
+    @Override
     public KotaModel selectKotaId (int id){
         return kotaMapper.selectKotaId (id);
     }
