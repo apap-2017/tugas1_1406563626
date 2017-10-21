@@ -41,4 +41,32 @@ public class PendudukServiceDatabase implements PendudukService
         log.info ("set penduduk with nik {} wafat", nik);
         pendudukMapper.setWafatPenduduk (nik);
     }
+
+    @Override
+    public void updatePenduduk (PendudukModel penduduk)
+    {
+        log.info ("update penduduk {}", penduduk);
+        pendudukMapper.updatePenduduk (penduduk);
+    }
+
+    @Override
+    public void addPenduduk (PendudukModel penduduk)
+    {
+        log.info ("add penduduk {}", penduduk);
+        pendudukMapper.addPenduduk(penduduk);
+    }
+
+    @Override
+    public List<PendudukModel> selectPendudukLakiLaki ()
+    {
+        log.info ("select penduduk laki-laki");
+        return pendudukMapper.selectPendudukLakiLaki ();
+    }
+
+    @Override
+    public List<PendudukModel> selectPendudukPerempuan ()
+    {
+        log.info ("select penduduk perempuan");
+        return pendudukMapper.selectPendudukPerempuan ();
+    }
 }

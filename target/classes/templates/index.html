@@ -5,6 +5,8 @@
     <meta charset="UTF-8"/>
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <title>SI Kependudukan</title>
 </head>
 <body>
@@ -16,6 +18,14 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a th:href="@{'/'}">Home</a></li>
                 <li><a href="#">Cari Data</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tambah Data
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Penduduk</a></li>
+                        <li><a href="#">Keluarga</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>
@@ -30,7 +40,7 @@
             <form action="/penduduk" method="get">
                 <div class="form-group">
                     <label for="nik">Masukkan Nomor Induk Kependudukan</label>
-                    <input type="text" class="form-control" name="nik"/>
+                    <input type="text" class="form-control" name="nik" id="nik"/>
                 </div>
                 <button type="submit" class="btn btn-primary">Lihat</button>
             </form>
@@ -38,8 +48,8 @@
             <h4>Lihat Data Keluarga Berdasarkan NKK</h4>
             <form action="/keluarga" method="get">
                 <div class="form-group">
-                    <label for="nik">Masukkan Nomor Kartu Keluarga</label>
-                    <input type="text" class="form-control" name="nkk"/>
+                    <label for="nkk">Masukkan Nomor Kartu Keluarga</label>
+                    <input type="text" class="form-control" name="nkk" id="nkk"/>
                 </div>
                 <button type="submit" class="btn btn-primary">Lihat</button>
             </form>

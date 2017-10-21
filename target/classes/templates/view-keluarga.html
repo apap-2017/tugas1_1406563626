@@ -82,8 +82,8 @@
                 <td><p th:text="${anggotaKeluarga.status_perkawinan}"></p></td>
                 <td><p th:text="${anggotaKeluarga.status_dalam_keluarga}"></p></td>
                 <td th:switch="${anggotaKeluarga.is_wni}">
-                    <p th:case="0">WNA</p>
-                    <p th:case="1">WNI</p>
+                    <p th:case="false">WNA</p>
+                    <p th:case="true">WNI</p>
                 </td>
             </tr>
             </tbody>

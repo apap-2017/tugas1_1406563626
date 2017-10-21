@@ -15,4 +15,12 @@ public interface PendudukService
     List<PendudukModel> selectPendudukKeluarga(int id_keluarga);
 
     void setWafatPenduduk(String nik);
+
+    void updatePenduduk(PendudukModel penduduk);
+
+    void addPenduduk(PendudukModel penduduk);
+
+    List<PendudukModel> selectPendudukLakiLaki();
+
+    List<PendudukModel> selectPendudukPerempuan();
 }

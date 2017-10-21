@@ -17,7 +17,7 @@ public class PendudukModel {
     private String nik;
     private String nama;
     private String tempat_lahir;
-    private Date tanggal_lahir;
+    private String tanggal_lahir;
     private int jenis_kelamin;
     private boolean is_wni;
     private int id_keluarga;
