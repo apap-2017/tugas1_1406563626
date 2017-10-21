@@ -70,6 +70,76 @@ public class Tugas1Controller {
         }
     }
 
+    @RequestMapping(value = "/penduduk/tambah")
+    public String addPenduduk (Model model)
+    {
+        List<KeluargaModel> keluarga = keluargaService.selectAllKeluarga();
+        model.addAttribute("penduduk", new PendudukModel());
+        model.addAttribute("keluarga", keluarga);
+        return "add-penduduk";
+    }
+
+    @RequestMapping(value = "/penduduk/tambah/submit")
+    public String addPendudukSubmit (Model model, @ModelAttribute PendudukModel penduduk)
+    {
+        String nik = "";
+
+        KeluargaModel keluarga = keluargaService.selectKeluargaId(penduduk.getId_keluarga());
+        KelurahanModel kelurahan = kelurahanService.selectKelurahanId(keluarga.getId_kelurahan());
+        KecamatanModel kecamatan = kecamatanService.selectKecamatanId(kelurahan.getId_kecamatan());
+        KotaModel kota = kotaService.selectKotaId(kecamatan.getId_kota());
+
+        // Memasukkan kode kecamatan yang sudah mengandung kode kelurahan dan kota ke nik
+        nik += kecamatan.getKode_kecamatan().substring(0,6);
+
+        if(penduduk.getJenis_kelamin() == 0){
+            // Laki-laki
+
+            // Memasukkan tanggal lahir ke nik
+            String[] tanggal_lahir = penduduk.getTanggal_lahir().split("-");
+            nik += tanggal_lahir[2];
+            nik += tanggal_lahir[1];
+            nik += tanggal_lahir[0].substring(2);
+
+        } else {
+            // Perempuan
+
+            // Memasukkan tanggal lahir + 40 ke nik
+            String[] tanggal_lahir = penduduk.getTanggal_lahir().split("-");
+            nik += Integer.toString(Integer.parseInt(tanggal_lahir[2]) + 40);
+            nik += tanggal_lahir[1];
+            nik += tanggal_lahir[0].substring(3);
+        }
+
+        List<PendudukModel> pendudukLain = pendudukService.selectSimilarPenduduk(penduduk.getTanggal_lahir(), kelurahan.getId(), kecamatan.getId(), kota.getId());
+
+        // Mengambil nomor urut penduduk baru yaitu jumlah penduduk dgn domisili dan tgl lahir yg sama + 1
+        String nomor_urut = Integer.toString(pendudukLain.size() + 1);
+
+        // Memasukkan nomor urut ke nik berdasarkan panjang dari nomor urut
+        if(nomor_urut.length() == 1){
+            nik += "000";
+            nik += nomor_urut;
+        } else if(nomor_urut.length() == 2){
+            nik += "00";
+            nik += nomor_urut;
+        } else if(nomor_urut.length() == 3){
+            nik += "0";
+            nik += nomor_urut;
+        } else if(nomor_urut.length() == 4){
+            nik += nomor_urut;
+        }
+
+        // Memasukkan nik yang sudah dibuat ke model penduduk
+        penduduk.setNik(nik);
+
+        // Memasukkan model penduduk baru ke database
+        pendudukService.addPenduduk(penduduk);
+
+        model.addAttribute("penduduk", penduduk);
+        return "add-penduduk-success";
+    }
+
     @RequestMapping(value = "/penduduk/mati", method = RequestMethod.POST)
     public String diePenduduk (Model model,
                                 @RequestParam(value = "nik") String nik)
