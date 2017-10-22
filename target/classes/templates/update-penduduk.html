@@ -72,10 +72,10 @@
                 <label for="status_perkawinan">Status Perkawinan</label>
                 <select class="form-control" name="status_perkawinan" id="status_perkawinan">
                     <option selected="true" th:field="*{status_perkawinan}" th:value="${penduduk.status_perkawinan}" th:text="${penduduk.status_perkawinan}"></option>
-                    <option th:if="${penduduk.status_perkawinan} != 'Belum Kawin'" value="'Belum Kawin'" th:field="*{status_perkawinan}">Belum Kawin</option>
-                    <option th:if="${penduduk.status_perkawinan} != 'Kawin'" value="'Kawin'" th:field="*{status_perkawinan}">Kawin</option>
-                    <option th:if="${penduduk.status_perkawinan} != 'Cerai Hidup'" value="'Cerai Hidup'" th:field="*{status_perkawinan}">Cerai Hidup</option>
-                    <option th:if="${penduduk.status_perkawinan} != 'Cerai Mati'" value="'Cerai Mati'" th:field="*{status_perkawinan}">Cerai Mati</option>
+                    <option th:if="${penduduk.status_perkawinan} != 'Belum Kawin'" value="Belum Kawin" th:field="*{status_perkawinan}">Belum Kawin</option>
+                    <option th:if="${penduduk.status_perkawinan} != 'Kawin'" value="Kawin" th:field="*{status_perkawinan}">Kawin</option>
+                    <option th:if="${penduduk.status_perkawinan} != 'Cerai Hidup'" value="Cerai Hidup" th:field="*{status_perkawinan}">Cerai Hidup</option>
+                    <option th:if="${penduduk.status_perkawinan} != 'Cerai Mati'" value="Cerai Mati" th:field="*{status_perkawinan}">Cerai Mati</option>
                 </select>
             </div>
             <div class="form-group">

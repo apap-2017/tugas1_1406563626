@@ -25,6 +25,6 @@ public interface KeluargaMapper
     @Select("SELECT * FROM siduk_dki.keluarga WHERE id = #{id}")
     KeluargaModel selectKeluargaId (@Param("id") int id);
 
-    @Insert("INSERT INTO siduk_dki.keluarga (id, nomor_kk, alamat, rt, rw, id_kelurahan, is_tidak_berlaku) VALUES (#{id}, #{nomor_kk}, #{alamat}, #{rt}, #{rw}, #{id_kelurahan}, '0')")
+    @Insert("INSERT INTO siduk_dki.keluarga (nomor_kk, alamat, rt, rw, id_kelurahan, is_tidak_berlaku) VALUES (#{nomor_kk}, #{alamat}, #{rt}, #{rw}, #{id_kelurahan}, '0')")
     void addKeluarga (KeluargaModel keluarga);
 }

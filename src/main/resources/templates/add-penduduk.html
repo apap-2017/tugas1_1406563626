@@ -30,6 +30,14 @@
                 <input type="text" class="form-control" name="nama" th:field="*{nama}"/>
             </div>
             <div class="form-group">
+                <label for="jenis_kelamin">Jenis Kelamin</label>
+                <select class="form-control" name="jenis_kelamin" id="jenis_kelamin">
+                    <option selected="true" disabled="disabled">Pilih Jenis Kelamin</option>
+                    <option value="0" th:field="*{jenis_kelamin}">Laki-laki</option>
+                    <option value="1" th:field="*{jenis_kelamin}">Perempuan</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="tempat_lahir">Tempat Lahir</label>
                 <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" th:field="*{tempat_lahir}"/>
             </div>
@@ -92,17 +100,17 @@
                 <label for="id_keluarga">ID Keluarga</label>
                 <input type="text" class="form-control" name="id_keluarga" id="id_keluarga" th:field="*{id_keluarga}"/>
             </div>
-            <div class="form-group">
-                <label class="col-xs-3 control-label" for="id_keluarga"> ID Keluarga </label>
-                <div class="col-xs-5 selectContainer">
-                    <select class="form-control" name="id_keluarga" id="id_keluarga">
-                        <option selected="true" disabled="disabled">Pilih ID Keluarga</option>
-                        <option th:each="keluarga,iterationStatus: ${keluarga}"
-                                th:value="${keluarga.id}"
-                                th:text="${keluarga.id}" />
-                    </select>
-                </div>
-            </div>
+            <!--<div class="form-group">-->
+                <!--<label class="col-xs-3 control-label" for="id_keluarga"> ID Keluarga </label>-->
+                <!--<div class="col-xs-5 selectContainer">-->
+                    <!--<select class="form-control" name="id_keluarga" id="id_keluarga">-->
+                        <!--<option selected="true" disabled="disabled">Pilih ID Keluarga</option>-->
+                        <!--<option th:each="keluarga,iterationStatus: ${keluarga}"-->
+                                <!--th:value="${keluarga.id}"-->
+                                <!--th:text="${keluarga.id}" />-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>
     </div>
