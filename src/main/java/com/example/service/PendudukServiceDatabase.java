@@ -50,10 +50,10 @@ public class PendudukServiceDatabase implements PendudukService
     }
 
     @Override
-    public void updatePenduduk (PendudukModel penduduk)
+    public void updatePenduduk (PendudukModel penduduk, String nik_lama)
     {
-        log.info ("update penduduk {}", penduduk);
-        pendudukMapper.updatePenduduk (penduduk);
+        log.info ("update penduduk {} with nik lama {}", penduduk, nik_lama);
+        pendudukMapper.updatePenduduk (penduduk, nik_lama);
     }
 
     @Override

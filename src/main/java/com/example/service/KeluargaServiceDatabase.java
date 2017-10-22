@@ -50,4 +50,16 @@ public class KeluargaServiceDatabase implements KeluargaService
         log.info("add keluarga {}", keluarga);
         keluargaMapper.addKeluarga(keluarga);
     }
+
+    @Override
+    public int keluargaSize (KeluargaModel keluarga) {
+        log.info("cek size of keluarga {}", keluarga);
+        return keluargaMapper.keluargaSize(keluarga);
+    }
+
+    @Override
+    public void setKeluargaTidakBerlaku (KeluargaModel keluarga) {
+        log.info("set keluarga {} tidak berlaku", keluarga);
+        keluargaMapper.setKeluargaTidakBerlaku(keluarga);
+    }
 }

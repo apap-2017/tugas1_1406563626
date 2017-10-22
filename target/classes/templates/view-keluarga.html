@@ -32,6 +32,7 @@
                 <p><b>Kelurahan/Desa</b></p>
                 <p><b>Kecamatan</b></p>
                 <p><b>Kota</b></p>
+                <p><b>Status</b></p>
             </div>
             <div class="col-md-8">
                 <p th:text="${keluarga.nomor_kk}"></p>
@@ -40,6 +41,10 @@
                 <p th:text="${kelurahan.nama_kelurahan}"></p>
                 <p th:text="${kecamatan.nama_kecamatan}"></p>
                 <p th:text="${kota.nama_kota}"></p>
+                <div th:switch="${keluarga.is_tidak_berlaku}">
+                    <p th:case="0">Masih Berlaku</p>
+                    <p th:case="1">Tidak Berlaku</p>
+                </div>
             </div>
         </div>
     </div>

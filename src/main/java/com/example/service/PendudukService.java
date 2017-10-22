@@ -18,7 +18,7 @@ public interface PendudukService
 
     void setWafatPenduduk(String nik);
 
-    void updatePenduduk(PendudukModel penduduk);
+    void updatePenduduk(PendudukModel penduduk, String nik_lama);
 
     void addPenduduk(PendudukModel penduduk);
 

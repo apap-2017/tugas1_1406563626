@@ -151,6 +151,14 @@ public class Tugas1Controller {
 
         if (penduduk != null) {
             pendudukService.setWafatPenduduk(nik);
+
+            // Mengecek keaktifan status keluarga
+            KeluargaModel keluarga = keluargaService.selectKeluargaId(penduduk.getId_keluarga());
+            int size = keluargaService.keluargaSize(keluarga);
+            if(size == 0){
+                keluargaService.setKeluargaTidakBerlaku(keluarga);
+            }
+
             model.addAttribute("penduduk", penduduk);
             return "wafat-penduduk";
         } else {
@@ -177,8 +185,63 @@ public class Tugas1Controller {
     public String updatePenduduk (Model model, @ModelAttribute PendudukModel penduduk)
     {
 
-        pendudukService.updatePenduduk(penduduk);
-        model.addAttribute("penduduk", penduduk);
+        String nik_lama = penduduk.getNik();
+
+        // Mengecek perubahan pada NIK
+        String nik_baru = "";
+
+        KeluargaModel keluarga = keluargaService.selectKeluargaId(penduduk.getId_keluarga());
+        KelurahanModel kelurahan = kelurahanService.selectKelurahanId(keluarga.getId_kelurahan());
+        KecamatanModel kecamatan = kecamatanService.selectKecamatanId(kelurahan.getId_kecamatan());
+        KotaModel kota = kotaService.selectKotaId(kecamatan.getId_kota());
+
+        // Memasukkan kode kecamatan yang sudah mengandung kode kota dan provinsi ke nik
+        nik_baru += kecamatan.getKode_kecamatan().substring(0,6);
+
+        if(penduduk.getJenis_kelamin() == 0){
+            // Laki-laki
+
+            // Memasukkan tanggal lahir ke nik
+            String[] tanggal_lahir = penduduk.getTanggal_lahir().split("-");
+            nik_baru += tanggal_lahir[2];
+            nik_baru += tanggal_lahir[1];
+            nik_baru += tanggal_lahir[0].substring(2);
+
+        } else {
+            // Perempuan
+
+            // Memasukkan tanggal lahir + 40 ke nik
+            String[] tanggal_lahir = penduduk.getTanggal_lahir().split("-");
+            nik_baru += Integer.toString(Integer.parseInt(tanggal_lahir[2]) + 40);
+            nik_baru += tanggal_lahir[1];
+            nik_baru += tanggal_lahir[0].substring(2);
+        }
+
+        List<PendudukModel> pendudukLain = pendudukService.selectSimilarPenduduk(penduduk.getTanggal_lahir(), kelurahan.getId(), kecamatan.getId(), kota.getId());
+
+        // Mengambil nomor urut penduduk baru yaitu jumlah penduduk dgn domisili dan tgl lahir yg sama + 1
+        String nomor_urut = Integer.toString(pendudukLain.size());
+
+        // Memasukkan nomor urut ke nik berdasarkan panjang dari nomor urut
+        if(nomor_urut.length() == 1){
+            nik_baru += "000";
+            nik_baru += nomor_urut;
+        } else if(nomor_urut.length() == 2){
+            nik_baru += "00";
+            nik_baru += nomor_urut;
+        } else if(nomor_urut.length() == 3){
+            nik_baru += "0";
+            nik_baru += nomor_urut;
+        } else if(nomor_urut.length() == 4){
+            nik_baru += nomor_urut;
+        }
+
+        // Memasukkan nik yang sudah dibuat ke model penduduk
+        penduduk.setNik(nik_baru);
+
+        pendudukService.updatePenduduk(penduduk, nik_lama);
+
+        model.addAttribute("nik_lama", nik_lama);
         return "update-penduduk-success";
     }
 

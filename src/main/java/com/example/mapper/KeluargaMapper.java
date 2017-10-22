@@ -27,4 +27,10 @@ public interface KeluargaMapper
 
     @Insert("INSERT INTO siduk_dki.keluarga (nomor_kk, alamat, rt, rw, id_kelurahan, is_tidak_berlaku) VALUES (#{nomor_kk}, #{alamat}, #{rt}, #{rw}, #{id_kelurahan}, '0')")
     void addKeluarga (KeluargaModel keluarga);
+
+    @Select("SELECT DISTINCT COUNT(p.nama) FROM siduk_dki.penduduk p, siduk_dki.keluarga k WHERE p.id_keluarga = k.id AND p.is_wafat = '0' AND k.nomor_kk = #{nomor_kk}")
+    int keluargaSize (KeluargaModel keluarga);
+
+    @Update("UPDATE siduk_dki.keluarga SET is_tidak_berlaku = '1' WHERE nomor_kk = #{nomor_kk}")
+    void setKeluargaTidakBerlaku (KeluargaModel keluarga);
 }

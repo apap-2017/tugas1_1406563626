@@ -15,4 +15,6 @@ public interface KeluargaService
     List<KeluargaModel> selectKeluargaKecamatan(int id_kecamatan);
     KeluargaModel selectKeluargaId(int id);
     void addKeluarga(KeluargaModel keluarga);
+    int keluargaSize(KeluargaModel keluarga);
+    void setKeluargaTidakBerlaku(KeluargaModel keluarga);
 }

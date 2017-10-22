@@ -25,8 +25,8 @@ public interface PendudukMapper
     @Update("UPDATE siduk_dki.penduduk SET is_wafat = '1' WHERE nik = #{nik}")
     void setWafatPenduduk (@Param("nik") String nik);
 
-    @Update("UPDATE siduk_dki.penduduk SET nama = #{nama}, jenis_kelamin = #{jenis_kelamin}, golongan_darah = #{golongan_darah}, agama = #{agama}, status_perkawinan = #{status_perkawinan}, pekerjaan = #{pekerjaan}, is_wni = #{is_wni}, id_keluarga = #{id_keluarga} WHERE nik = #{nik}")
-    void updatePenduduk (PendudukModel penduduk);
+    @Update("UPDATE siduk_dki.penduduk SET nik = #{penduduk.nik}, nama = #{penduduk.nama}, jenis_kelamin = #{penduduk.jenis_kelamin}, golongan_darah = #{penduduk.golongan_darah}, agama = #{penduduk.agama}, status_perkawinan = #{penduduk.status_perkawinan}, pekerjaan = #{penduduk.pekerjaan}, is_wni = #{penduduk.is_wni}, id_keluarga = #{penduduk.id_keluarga} WHERE nik = #{nik_lama}")
+    void updatePenduduk (@Param ("penduduk") PendudukModel penduduk, @Param("nik_lama") String nik_lama);
 
     @Insert("INSERT INTO siduk_dki.penduduk (nik, nama, tempat_lahir, tanggal_lahir, jenis_kelamin, is_wni, id_keluarga, agama, pekerjaan, status_perkawinan, status_dalam_keluarga, golongan_darah, is_wafat) VALUES (#{nik}, #{nama}, #{tempat_lahir}, #{tanggal_lahir}, #{jenis_kelamin}, #{is_wni}, #{id_keluarga}, #{agama}, #{pekerjaan}, #{status_perkawinan}, #{status_dalam_keluarga}, #{golongan_darah}, '0')")
     void addPenduduk (PendudukModel penduduk);
