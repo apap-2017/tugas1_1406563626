@@ -36,6 +36,13 @@ public class PendudukServiceDatabase implements PendudukService
     }
 
     @Override
+    public List<PendudukModel> selectPendudukKelurahan (int id_kelurahan)
+    {
+        log.info ("select penduduk with id keluarga {}", id_kelurahan);
+        return pendudukMapper.selectPendudukKeluarga(id_kelurahan);
+    }
+
+    @Override
     public List<PendudukModel> selectSimilarPenduduk (String tanggal_lahir, int id_kelurahan, int id_kecamatan, int id_kota)
     {
         log.info ("select penduduk with tanggal_lahir {} id kelurahan {} id kecamatan {} id kota {}", tanggal_lahir, id_kelurahan, id_kecamatan, id_kota);

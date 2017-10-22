@@ -31,8 +31,8 @@ public class KecamatanServiceDatabase implements KecamatanService {
     }
 
     @Override
-    public int selectKecamatanKota(int id) {
-        return kecamatanMapper.selectKecamatanKota(id);
+    public List<KecamatanModel> selectKecamatanKota(int id_kota) {
+        return kecamatanMapper.selectKecamatanKota(id_kota);
 
     }
 }

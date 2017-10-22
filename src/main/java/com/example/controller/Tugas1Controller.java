@@ -73,6 +73,37 @@ public class Tugas1Controller {
         }
     }
 
+    @RequestMapping(value = "/penduduk/cari")
+    public String searchPendudukKota (Model model, @RequestParam(value = "id_kota", required = false) Integer id_kota,
+                                      @RequestParam(value = "id_kecamatan", required = false) Integer id_kecamatan,
+                                      @RequestParam(value = "id_kelurahan", required = false) Integer id_kelurahan)
+    {
+        List<KotaModel> listKota = kotaService.selectAllKota();
+        if(id_kota != null){
+            KotaModel kota = kotaService.selectKotaId(id_kota);
+            List<KecamatanModel> listKecamatan = kecamatanService.selectKecamatanKota(id_kota);
+            model.addAttribute("kota", kota);
+            model.addAttribute("listKecamatan", listKecamatan);
+            if(id_kecamatan != null){
+                KecamatanModel kecamatan = kecamatanService.selectKecamatanId(id_kecamatan);
+                List<KelurahanModel> listKelurahan = kelurahanService.selectKelurahanKecamatan(id_kecamatan);
+                model.addAttribute("kecamatan", kecamatan);
+                model.addAttribute("listKelurahan", listKelurahan);
+                if(id_kelurahan != null){
+                    KelurahanModel kelurahan = kelurahanService.selectKelurahanId(id_kelurahan);
+                    model.addAttribute("kelurahan", kelurahan);
+                    List<PendudukModel> listPenduduk = pendudukService.selectPendudukKelurahan(id_kelurahan);
+                    model.addAttribute("listPenduduk", listPenduduk);
+                    return "view-penduduk-kelurahan";
+                }
+                return "search-penduduk-kelurahan";
+            }
+            return "search-penduduk-kecamatan";
+        }
+        model.addAttribute("listKota", listKota);
+        return "search-penduduk-kota";
+    }
+
     @RequestMapping(value = "/penduduk/tambah")
     public String addPenduduk (Model model)
     {

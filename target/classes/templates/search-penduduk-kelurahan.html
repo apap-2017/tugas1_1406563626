@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <title>SI Kependudukan</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{'/'}">SI Kependudukan</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a th:href="@{'/'}">Home</a></li>
+            <li><a href="#">Cari Data</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tambah Data
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Penduduk</a></li>
+                    <li><a href="#">Keluarga</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h4 th:text="'Lihat Data Penduduk Berdasarkan Kelurahan di ' + ${kota.nama_kota} + ', ' + ${kecamatan.nama_kecamatan}"></h4>
+        <form action="/penduduk/cari" method="get">
+            <div class="form-group">
+                <label for="id_kota"> Kota </label>
+                <select class="form-control" name="id_kota" id="id_kota">
+                    <option selected="true" readonly="true" th:value="${kota.id}" th:text="${kota.nama_kota}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_kecamatan"> Kecamatan </label>
+                <select class="form-control" name="id_kecamatan" id="id_kecamatan">
+                    <option selected="true" readonly="true" th:value="${kecamatan.id}" th:text="${kecamatan.nama_kecamatan}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_kelurahan"> Kelurahan </label>
+                <select class="form-control" name="id_kelurahan" id="id_kelurahan">
+                    <option selected="true" disabled="disabled">Pilih Kota</option>
+                    <option th:each="listKelurahan,iterationStatus: ${listKelurahan}"
+                            th:value="${listKelurahan.id}"
+                            th:text="${listKelurahan.nama_kelurahan}" />
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Lihat</button>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+</body>
+</html>
+

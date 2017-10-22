@@ -19,6 +19,9 @@ public interface PendudukMapper
     @Select("SELECT * FROM siduk_dki.penduduk WHERE id_keluarga = #{id_keluarga}")
     List<PendudukModel> selectPendudukKeluarga (@Param("id_keluarga") int id_keluarga);
 
+    @Select("SELECT DISTINCT p.nama FROM siduk_dki.penduduk p, siduk_dki.keluarga k, siduk_dki.kelurahan kel WHERE p.id_keluarga = k.id AND k.id_kelurahan = #{id_kelurahan}")
+    List<PendudukModel> selectPendudukKelurahan (@Param("id_kelurahan") int id_kelurahan);
+
     @Select("SELECT DISTINCT p.nama FROM siduk_dki.penduduk p, siduk_dki.keluarga k, siduk_dki.kelurahan kel, siduk_dki.kecamatan kec, siduk_dki.kota ko WHERE p.tanggal_lahir = #{tanggal_lahir} AND p.id_keluarga = k.id AND k.id_kelurahan = #{id_kelurahan} AND kel.id_kecamatan = #{id_kecamatan} AND kec.id_kota = #{id_kota}")
     List<PendudukModel> selectSimilarPenduduk (@Param("tanggal_lahir") String tanggal_lahir, @Param("id_kelurahan") int id_kelurahan, @Param("id_kecamatan") int id_kecamatan, @Param("id_kota") int id_kota);
 

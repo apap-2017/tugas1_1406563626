@@ -11,5 +11,5 @@ import java.util.List;
 public interface KecamatanService {
     List<KecamatanModel> selectAllKecamatan();
     KecamatanModel selectKecamatanId(int id);
-    int selectKecamatanKota(int id);
+    List<KecamatanModel> selectKecamatanKota(int id_kota);
 }

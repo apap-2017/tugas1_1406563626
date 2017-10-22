@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css"/>
+    <script type="text/javascript" charset="utf8" src="/DataTables/datatables.js"></script>
+    <title>SI Kependudukan - Lihat Penduduk</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{'/'}">SI Kependudukan</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a th:href="@{'/'}">Home</a></li>
+            <li><a href="#">Cari Data</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h3 th:text="'Lihat Data Penduduk Di ' + ${kota.nama_kota} + ', ' + ${kecamatan.nama_kecamatan} + ', ' + ${kelurahan.nama_kelurahan}"></h3>
+        <table id="data_penduduk" class="display">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nama Lengkap</th>
+                <th>NIK</th>
+                <th>Jenis Kelamin</th>
+                <th>Tempat Lahir</th>
+                <th>Tanggal Lahir</th>
+                <th>Agama</th>
+                <th>Pekerjaan</th>
+                <th>Status Perkawinan</th>
+                <th>Status Dalam Keluarga</th>
+                <th>Kewarganegaraan</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="listPenduduk,iterationStatus: ${listPenduduk}">
+                <td><p th:text="${iterationStatus.count}"></p></td>
+                <td><p th:text="${listPenduduk.nama}"></p></td>
+                <td><p th:text="${listPenduduk.nik}"></p></td>
+                <td th:switch="${listPenduduk.jenis_kelamin}">
+                    <p th:case="0">Laki-laki</p>
+                    <p th:case="1">Perempuan</p>
+                </td>
+                <td><p th:text="${listPenduduk.tempat_lahir}"></p></td>
+                <td><p th:text="${listPenduduk.tanggal_lahir}"></p></td>
+                <td><p th:text="${listPenduduk.agama}"></p></td>
+                <td><p th:text="${listPenduduk.pekerjaan}"></p></td>
+                <td><p th:text="${listPenduduk.status_perkawinan}"></p></td>
+                <td><p th:text="${listPenduduk.status_dalam_keluarga}"></p></td>
+                <td th:switch="${listPenduduk.is_wni}">
+                    <p th:case="false">WNA</p>
+                    <p th:case="true">WNI</p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+</body>
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#data_penduduk').DataTable();
+    } );
+</script>
+</html>

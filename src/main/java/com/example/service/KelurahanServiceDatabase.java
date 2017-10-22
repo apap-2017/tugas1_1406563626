@@ -32,5 +32,8 @@ public class KelurahanServiceDatabase implements KelurahanService
     }
 
     @Override
-    public List<KelurahanModel> selectKelurahanKecamatan (int id_kecamatan) { return kelurahanMapper.selectKelurahanKecamatan(id_kecamatan); }
+    public List<KelurahanModel> selectKelurahanKecamatan (int id_kecamatan) {
+        log.info("select all kelurahan with id kecamatan {}", id_kecamatan);
+        return kelurahanMapper.selectKelurahanKecamatan(id_kecamatan);
+    }
 }
