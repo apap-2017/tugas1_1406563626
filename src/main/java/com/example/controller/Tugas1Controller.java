@@ -111,7 +111,7 @@ public class Tugas1Controller {
             String[] tanggal_lahir = penduduk.getTanggal_lahir().split("-");
             nik += Integer.toString(Integer.parseInt(tanggal_lahir[2]) + 40);
             nik += tanggal_lahir[1];
-            nik += tanggal_lahir[0].substring(3);
+            nik += tanggal_lahir[0].substring(2);
         }
 
         List<PendudukModel> pendudukLain = pendudukService.selectSimilarPenduduk(penduduk.getTanggal_lahir(), kelurahan.getId(), kecamatan.getId(), kota.getId());
@@ -151,7 +151,7 @@ public class Tugas1Controller {
 
         if (penduduk != null) {
             pendudukService.setWafatPenduduk(nik);
-            model.addAttribute(penduduk);
+            model.addAttribute("penduduk", penduduk);
             return "wafat-penduduk";
         } else {
             model.addAttribute ("nik", nik);
