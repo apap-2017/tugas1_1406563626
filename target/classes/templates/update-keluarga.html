@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css" />
+    <title>SI Kependudukan - Ubah Penduduk</title>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{'/'}">SI Kependudukan</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a th:href="@{'/'}">Home</a></li>
+            <li><a href="#">Cari Data</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h3>Ubah Penduduk</h3>
+        <form action="/keluarga/ubah/submit" th:object="${keluarga}" method="post">
+            <div class="form-group">
+                <label for="nomor_kk">Nomor KK</label>
+                <input type="text" class="form-control" name="nomor_kk" id="nomor_kk" readonly="true" th:field="*{nomor_kk}" th:value="${keluarga.nomor_kk}"/>
+            </div>
+            <div class="form-group">
+                <label for="alamat">Alamat</label>
+                <input type="text" class="form-control" name="alamat" id="alamat" th:field="*{alamat}" th:value="${keluarga.alamat}"/>
+            </div>
+            <div class="form-group">
+                <label for="rt">RT/RW</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="rt" id="rt" th:field="*{rt}" th:value="${keluarga.rt}"/>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="rw" id="rw" th:field="*{rw}" th:value="${keluarga.rw}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_kelurahan"> Kelurahan </label>
+                <select class="form-control" name="id_kelurahan" id="id_kelurahan">
+                    <option selected="true" th:field="*{id_kelurahan}" th:value="${keluarga.id_kelurahan}" th:text="${kelurahan.nama_kelurahan}"></option>
+                    <option th:each="listKelurahan,iterationStatus: ${listKelurahan}"
+                            th:value="${listKelurahan.id}"
+                            th:text="${listKelurahan.nama_kelurahan}" th:field="*{id_kelurahan}" th:if="${listKelurahan.id} != ${kelurahan.id}"/>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+</body>
+</html>
