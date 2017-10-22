@@ -62,4 +62,10 @@ public class KeluargaServiceDatabase implements KeluargaService
         log.info("set keluarga {} tidak berlaku", keluarga);
         keluargaMapper.setKeluargaTidakBerlaku(keluarga);
     }
+
+    @Override
+    public void updateKeluarga (KeluargaModel keluarga, String nkk_lama) {
+        log.info("update keluarga {} with nkk lama {}", keluarga, nkk_lama);
+        keluargaMapper.updateKeluarga(keluarga, nkk_lama);
+    }
 }

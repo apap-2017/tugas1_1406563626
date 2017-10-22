@@ -330,4 +330,72 @@ public class Tugas1Controller {
         model.addAttribute("keluarga", keluarga);
         return "add-keluarga-success";
     }
+
+    @RequestMapping(value = "/keluarga/ubah/{nkk}")
+    public String updateKeluarga (Model model, @PathVariable(value = "nkk") String nkk)
+    {
+        KeluargaModel keluarga = keluargaService.selectKeluarga(nkk);
+        KelurahanModel kelurahan = kelurahanService.selectKelurahanId(keluarga.getId_kelurahan());
+        List<KelurahanModel> listKelurahan = kelurahanService.selectAllKelurahan();
+
+        if (keluarga != null) {
+            model.addAttribute("keluarga", keluarga);
+            model.addAttribute("kelurahan", kelurahan);
+            model.addAttribute("listKelurahan", listKelurahan);
+            return "update-keluarga";
+        } else {
+            model.addAttribute ("nkk", nkk);
+            return "not-found";
+        }
+    }
+
+    @RequestMapping(value = "/keluarga/ubah/submit")
+    public String updateKeluarga (Model model, @ModelAttribute KeluargaModel keluarga)
+    {
+        String nkk_lama = keluarga.getNomor_kk();
+
+        String nkk_baru = "";
+
+        KelurahanModel kelurahan = kelurahanService.selectKelurahanId(keluarga.getId_kelurahan());
+        KecamatanModel kecamatan = kecamatanService.selectKecamatanId(kelurahan.getId_kecamatan());
+
+        // Memasukkan kode kecamatan yang sudah mengandung kode kota dan provinsi ke nik
+        nkk_baru += kecamatan.getKode_kecamatan().substring(0,6);
+
+        // Mengambil data tanggal pembuatan keluarga
+        //    tidak berubah dari nkk lama
+        nkk_baru += nkk_lama.substring(6,12);
+
+        List<KeluargaModel> listKeluarga = keluargaService.selectKeluargaKecamatan(kecamatan.getId());
+
+        int counter = 0;
+        for (KeluargaModel klrg : listKeluarga){
+            String kel_nkk = klrg.getNomor_kk();
+            if(kel_nkk.substring(0,12).equals(nkk_baru)){
+                counter++;
+            }
+        }
+
+        String nomor_urut = Integer.toString(counter);
+
+        // Memasukkan nomor urut ke nkk berdasarkan panjang dari nomor urut
+        if(nomor_urut.length() == 1){
+            nkk_baru += "000";
+            nkk_baru += nomor_urut;
+        } else if(nomor_urut.length() == 2){
+            nkk_baru += "00";
+            nkk_baru += nomor_urut;
+        } else if(nomor_urut.length() == 3){
+            nkk_baru += "0";
+            nkk_baru += nomor_urut;
+        } else if(nomor_urut.length() == 4){
+            nkk_baru += nomor_urut;
+        }
+
+        keluarga.setNomor_kk(nkk_baru);
+
+        keluargaService.updateKeluarga(keluarga, nkk_lama);
+        model.addAttribute("nkk_lama", nkk_lama);
+        return "update-keluarga-success";
+    }
 }

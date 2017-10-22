@@ -17,4 +17,5 @@ public interface KeluargaService
     void addKeluarga(KeluargaModel keluarga);
     int keluargaSize(KeluargaModel keluarga);
     void setKeluargaTidakBerlaku(KeluargaModel keluarga);
+    void updateKeluarga(KeluargaModel keluarga, String nkk_lama);
 }

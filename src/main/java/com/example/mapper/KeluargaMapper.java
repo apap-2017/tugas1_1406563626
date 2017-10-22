@@ -33,4 +33,7 @@ public interface KeluargaMapper
 
     @Update("UPDATE siduk_dki.keluarga SET is_tidak_berlaku = '1' WHERE nomor_kk = #{nomor_kk}")
     void setKeluargaTidakBerlaku (KeluargaModel keluarga);
+
+    @Insert("UPDATE siduk_dki.keluarga SET nomor_kk = #{keluarga.nomor_kk}, alamat = #{keluarga.alamat}, rt = #{keluarga.rt}, rw = #{keluarga.rw}, id_kelurahan = #{keluarga.id_kelurahan} WHERE nomor_kk = #{nkk_lama}")
+    void updateKeluarga (@Param("keluarga") KeluargaModel keluarga, @Param("nkk_lama") String nkk_lama);
 }
